@@ -1,0 +1,59 @@
+.menu img{
+    width: 30%;
+}
+
+
+
+.card-header {
+    border-radius: 10px 10px 0 0;
+}
+
+.list-group-item {
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+.btn-success-modif {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    border: none;
+}
+
+.btn-success-modif:hover {
+    background: linear-gradient(45deg, #20c997, #28a745);
+}
+
+.btn-outline-secondary {
+    border: 1px solid #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+.field-wrapper {
+    width: 70%;
+    max-width: 300px;
+    aspect-ratio: 2/3;
+    background: #f0f0f0;
+    border: 2px solid #ccc;
+    position: relative;
+    margin: auto;
+    border-radius: 8px;
+}
+.position-dot {
+    width: 30px;
+    height: 30px;
+    background-color: #2e7d32;
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
