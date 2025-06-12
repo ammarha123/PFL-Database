@@ -62,6 +62,7 @@
                         Kategori Video
                     </a>
                 </th>
+                <th>Detail</th>
                 <th>Link Video</th>
                 <th>Aksi</th>
             </tr>
@@ -71,6 +72,15 @@
             <tr>
                 <td>{{ $datavideos->firstItem() + $index }}</td>
                 <td>{{ $video->video_category }}</td>
+                <td>
+                    @if ($video->video_category === 'Full Match' && $video->match)
+                        {{ $video->match->home_team }} vs {{ $video->match->away_team }}
+                    @elseif ($video->video_category === 'Latihan' && $video->latihan)
+                    {{ $video->latihan->tanggal }} - {{ $video->latihan->teams->pluck('name')->join(', ') }}                    
+                    @else
+                        -
+                    @endif
+                </td>                
                 <td><a href="{{ $video->link_video }}" target="_blank">Lihat Video</a></td>
                 <td>
                         <a href="{{ route('datavideo.show', $video->id) }}" class="btn btn-info btn-sm">

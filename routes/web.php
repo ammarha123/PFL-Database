@@ -8,11 +8,13 @@ use App\Http\Controllers\DataPertandinganController;
 use App\Http\Controllers\DataTesController;
 use App\Http\Controllers\DataTimController;
 use App\Http\Controllers\DataVideoController;
+use App\Http\Controllers\EvaluasiMandiriController as ControllersEvaluasiMandiriController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Player\DataLatihanController as PlayerDataLatihanController;
 use App\Http\Controllers\Player\DataPertandinganController as PlayerDataPertandinganController;
 use App\Http\Controllers\Player\DataTesController as PlayerDataTesController;
 use App\Http\Controllers\Player\DataVideoController as PlayerDataVideoController;
+use App\Http\Controllers\Player\RaporPerkembanganController as PlayerRaporPerkembanganController;
 use App\Http\Controllers\Player\EvaluasiMandiriController;
 use App\Http\Controllers\RaporPerkembanganController;
 use App\Http\Controllers\TeamController;
@@ -108,7 +110,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rapor-perkembangan/{player}', [RaporPerkembanganController::class, 'show'])->name('rapor_perkembangan.show');
     Route::post('/rapor-perkembangan/{player}/update-photo', [RaporPerkembanganController::class, 'updatePhoto'])->name('rapor_perkembangan.update-photo');
     Route::post('/rapor-perkembangan/{player}/update', [RaporPerkembanganController::class, 'update'])->name('rapor_perkembangan.update');
+    Route::post('/rapor-perkembangan/{player}/update-targetperkembangan', [RaporPerkembanganController::class, 'updateTargetPerkembangan'])->name('rapor_perkembangan.update-targetperkembangan');
+    Route::post('/rapor-perkembangan/{player}/update-evaluasi', [RaporPerkembanganController::class, 'updateEvaluasi'])->name('rapor_perkembangan.update-evaluasi');
+    Route::get('/rapor-perkembangan/{player}/preview', [RaporPerkembanganController::class, 'preview'])->name('rapor_perkembangan.preview');
+    Route::get('/rapor-perkembangan/{player}/download-pdf', [RaporPerkembanganController::class, 'downloadPDF'])->name('rapor_perkembangan.download-pdf');
 
+    Route::get('/admin/evaluasi-mandiri', [ControllersEvaluasiMandiriController::class, 'index'])->name('evaluasi_mandiri_admin.index');
+    Route::get('/admin/evaluasi-mandiri/{id}', [ControllersEvaluasiMandiriController::class, 'show'])->name('evaluasi_mandiri_admin.show');
 
     Route::middleware(['auth', 'role:Player'])->group(function () {
         Route::get('/player/datalatihan', [PlayerDataLatihanController::class, 'index'])->name('player.datalatihan.index');
@@ -121,7 +129,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/player/datapertandingan', [PlayerDataPertandinganController::class, 'index'])->name('player.datapertandingan.index');
         Route::get('/player/datapertandingan/match-details/{id}', 
         [PlayerDataPertandinganController::class, 'show']
-    )->name('player.datapertandingan.show');
-    
+        )->name('player.datapertandingan.show');
+        Route::get('/player/raporperkembangan', [PlayerRaporPerkembanganController::class, 'index'])->name('player.raporperkembangan.index');
+        Route::get('/player/raporperkembangan/{rapor}', [PlayerRaporPerkembanganController::class, 'show'])
+        ->name('player.raporperkembangan.show');
+
     });
 });

@@ -2,14 +2,18 @@
 
 @section('content')
     <div class="container" style="font-family: 'Segoe UI', sans-serif;">
+        <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">
+            &larr; Kembali
+        </a>
+        <h2 class="mb-4 mt-5 text-center">Rapor Perkembangan</h2>
+        <div class="text-end mb-3">
+            <a href="{{ route('rapor_perkembangan.download-pdf', $player->id) }}" class="btn btn-success">
+                ⬇️ Unduh PDF
+            </a>
+        </div>
         <div class="card shadow border-0 my-3" style="background-color: #e8f5e9;">
             <div class="card-body p-4">
-                <div class="">
-                    <a href="{{ route('rapor_perkembangan.preview', $player->id) }}" class="btn btn-outline-dark mb-3" target="_blank">
-                        Download PDF
-                    </a>        
-                </div>
-                <div class="row">
+                <div class="row align-items-center">
                     <!-- 🧑 Player Info -->
                     <div class="col-md-3 text-center">
                         @if ($player->photo_profile)
@@ -19,15 +23,8 @@
                         <h5 class="mb-1 text-uppercase">{{ $player->user->name }}</h5>
                         <small class="text-muted">Tanggal Lahir:
                             {{ \Carbon\Carbon::parse($player->bod)->format('d-M-Y') }}</small>
-
-                        <!-- Edit Profile Photo Button -->
-                        <div class="mt-3">
-                            <button class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#editPhotoModal">
-                                Edit Foto Profil
-                            </button>
-                        </div>
                     </div>
+
                     <div class="col-md-4">
                         <h6 class="fw-bold text-success">KOMPOSISI TUBUH</h6>
                     
@@ -106,9 +103,6 @@
                  <div class="col-md-5">
                     <h6 class="fw-bold text-success d-flex justify-content-between align-items-center">
                         EVALUASI SEPAKBOLA
-                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editEvaluasiModal">
-                            Edit
-                        </button>
                     </h6>
                 
                     @php
@@ -198,21 +192,11 @@
                             <div><i class="bi bi-play-circle"></i> 9 kali</div>
                             <div><i class="bi bi-arrow-repeat"></i> 3 kali</div>
                         </div> --}}
-
-                        <div class="mt-3">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#editRaporModal">
-                                Edit Posisi & Deskripsi Umum
-                            </button>
-                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col d-flex justify-content-between align-items-center">
                                 <h6 class="fw-bold text-success">TARGET PERBAIKAN</h6>
-                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editTargetModal">
-                                    Tambahkan Target
-                                </button>
                             </div>
                         </div>
                     
@@ -236,178 +220,4 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="editEvaluasiModal" tabindex="-1" aria-labelledby="editEvaluasiModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <form action="{{ route('rapor_perkembangan.update-evaluasi', $player->id) }}" method="POST" class="modal-content">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editEvaluasiModalLabel">Edit Evaluasi Sepakbola</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body row g-3">
-                    @php
-                        $eval = $rapor->evaluasi ?? null;
-                    @endphp
-    
-                    <div class="col-md-6">
-                        <label class="form-label">Attack (+)</label>
-                        <textarea class="form-control" name="positif_attacking" rows="2" placeholder="Pisahkan dengan koma (,)">{{ $eval?->positif_attacking }}</textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Attack (-)</label>
-                        <textarea class="form-control" name="negatif_attacking" rows="2" placeholder="Pisahkan dengan koma (,)">{{ $eval?->negatif_attacking }}</textarea>
-                    </div>
-    
-                    <div class="col-md-6">
-                        <label class="form-label">Defend (+)</label>
-                        <textarea class="form-control" name="positif_defending" rows="2" placeholder="Pisahkan dengan koma (,)">{{ $eval?->positif_defending }}</textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Defend (-)</label>
-                        <textarea class="form-control" name="negatif_defending" rows="2" placeholder="Pisahkan dengan koma (,)">{{ $eval?->negatif_defending }}</textarea>
-                    </div>
-    
-                    <div class="col-md-6">
-                        <label class="form-label">Transisi (+)</label>
-                        <textarea class="form-control" name="positif_transisi" rows="2" placeholder="Pisahkan dengan koma (,)">{{ $eval?->positif_transisi }}</textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Transisi (-)</label>
-                        <textarea class="form-control" name="negatif_transisi" rows="2" placeholder="Pisahkan dengan koma (,)">{{ $eval?->negatif_transisi }}</textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-
-    <div class="modal fade" id="editPhotoModal" tabindex="-1" aria-labelledby="editPhotoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('rapor_perkembangan.update-photo', $player->id) }}" method="POST"
-                enctype="multipart/form-data" class="modal-content">
-                @csrf
-                @method('POST')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editPhotoModalLabel">Edit Foto Profil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="photo_profile" class="form-label">Pilih Foto Baru</label>
-                        <input type="file" class="form-control" name="photo_profile" accept="image/*" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal fade" id="editTargetModal" tabindex="-1" aria-labelledby="editTargetModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <form action="{{ route('rapor_perkembangan.update-targetperkembangan', $player->id) }}" method="POST" class="modal-content">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editTargetModalLabel">Tambah / Edit Target Perkembangan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="target-wrapper">
-                        @foreach ($rapor->targets ?? [] as $i => $t)
-                        <div class="border rounded p-3 mb-3">
-                            <label>Target</label>
-                            <input type="text" name="targets[{{ $i }}][target]" value="{{ $t->target }}" class="form-control mb-2">
-                            <label>Kapan Tercapai</label>
-                            <input type="text" name="targets[{{ $i }}][kapan_tercapai]" value="{{ $t->kapan_tercapai }}" class="form-control mb-2">
-                            <label>Bagaimana Mencapainya</label>
-                            <textarea name="targets[{{ $i }}][cara_mencapai]" class="form-control">{{ $t->cara_mencapai }}</textarea>
-                        </div>
-                        @endforeach
-                    </div>
-                    <button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="addTarget()">+ Tambah Target Baru</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-
-    <!-- Modal: Edit Posisi dan Deskripsi Umum -->
-    <div class="modal fade" id="editRaporModal" tabindex="-1" aria-labelledby="editRaporModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('rapor_perkembangan.update', $player->id) }}" method="POST" class="modal-content">
-                @csrf
-                @method('POST')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editRaporModalLabel">Edit Posisi & Deskripsi Umum</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="deskripsi_umum" class="form-label">Deskripsi Umum</label>
-                        <textarea class="form-control" name="deskripsi_umum" rows="4" required>{{ $rapor->deskripsi_umum ?? '' }}</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Pilih Posisi</label>
-                        @php
-                            $allPositions = ['GK', 'LB', 'CB', 'RB', 'CM', 'LW', 'RW', 'CAM', 'CDM', 'ST'];
-                            $selected = $rapor ? $rapor->positions->pluck('position_code')->toArray() : [];
-                        @endphp
-                        <div class="row">
-                            @foreach ($allPositions as $pos)
-                                <div class="col-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="positions[]"
-                                            value="{{ $pos }}" id="pos_{{ $pos }}"
-                                            {{ in_array($pos, $selected) ? 'checked' : '' }}>
-                                        <label class="form-check-label"
-                                            for="pos_{{ $pos }}">{{ $pos }}</label>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function addTarget() {
-            const wrapper = document.getElementById('target-wrapper');
-            const count = wrapper.querySelectorAll('.border.p-3').length;
-        
-            if (count >= 3) {
-                alert('Maksimal 3 target perbaikan saja.');
-                return;
-            }
-        
-            const index = count;
-        
-            wrapper.insertAdjacentHTML('beforeend', `
-                <div class="border rounded p-3 mb-3">
-                    <label>Target</label>
-                    <input type="text" name="targets[${index}][target]" class="form-control mb-2">
-                    <label>Kapan Tercapai</label>
-                    <input type="text" name="targets[${index}][kapan_tercapai]" class="form-control mb-2">
-                    <label>Bagaimana Mencapainya</label>
-                    <textarea name="targets[${index}][cara_mencapai]" class="form-control"></textarea>
-                </div>
-            `);
-        }
-        </script>        
 @endsection

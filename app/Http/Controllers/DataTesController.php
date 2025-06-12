@@ -79,27 +79,9 @@ class DataTesController extends Controller
             'players.*.fat_abs' => 'nullable|numeric',
             'players.*.fat_percentage' => 'nullable|numeric',
     
-            // FMS
-            'players.*.fms_squat' => 'nullable|integer|min:0|max:3',
-            'players.*.fms_hurdle' => 'nullable|integer|min:0|max:3',
-            'players.*.fms_lunge' => 'nullable|integer|min:0|max:3',
-            'players.*.fms_shoulder' => 'nullable|integer|min:0|max:3',
-            'players.*.fms_leg_raise' => 'nullable|integer|min:0|max:3',
-            'players.*.fms_push_up' => 'nullable|integer|min:0|max:3',
-            'players.*.fms_rotary' => 'nullable|integer|min:0|max:3',
-            'players.*.fms_total' => 'nullable|integer|min:0|max:21',
-    
             // VO2Max & MAS
-            'players.*.vo2max_type' => 'nullable|numeric',
-            'players.*.vo2max_duration' => 'nullable|numeric',
-            'players.*.speed' => 'nullable|numeric',
-            'players.*.oxygen' => 'nullable|numeric',
-            'players.*.vo2max_score' => 'nullable|numeric',
-    
-            'players.*.mas_type' => 'nullable|numeric',
-            'players.*.mas_speed' => 'nullable|numeric',
-            'players.*.mas_duration' => 'nullable|numeric',
-            'players.*.mas_distance' => 'nullable|numeric',
+            'players.*.vo2max_level' => 'nullable|numeric',
+            'players.*.vo2max_balikan' => 'nullable|numeric',
         ]);
     
         // ✅ Store Individual Test
@@ -115,23 +97,8 @@ class DataTesController extends Controller
                 'fat_thighs' => $request->input('fat_thighs') ?? null,
                 'fat_abs' => $request->input('fat_abs') ?? null,
                 'fat_percentage' => $request->input('fat_percentage') ?? null,
-                'fms_squat' => $request->input('fms_squat') ?? null,
-                'fms_hurdle' => $request->input('fms_hurdle') ?? null,
-                'fms_lunge' => $request->input('fms_lunge') ?? null,
-                'fms_shoulder' => $request->input('fms_shoulder') ?? null,
-                'fms_leg_raise' => $request->input('fms_leg_raise') ?? null,
-                'fms_push_up' => $request->input('fms_push_up') ?? null,
-                'fms_rotary' => $request->input('fms_rotary') ?? null,
-                'fms_total' => $request->input('fms_total') ?? null,
-                'vo2max_type' => $request->input('vo2max_type') ?? null,
-                'vo2max_duration' => $request->input('vo2max_duration') ?? null,
-                'speed' => $request->input('speed') ?? null,
-                'oxygen' => $request->input('oxygen') ?? null,
-                'vo2max_score' => $request->input('vo2max_score') ?? null,
-                'mas_type' => $request->input('mas_type') ?? null,
-                'mas_speed' => $request->input('mas_speed') ?? null,
-                'mas_duration' => $request->input('mas_duration') ?? null,
-                'mas_distance' => $request->input('mas_distance') ?? null,
+                'vo2max_level' => $request->input('vo2max_level') ?? null,
+                'vo2max_balikan' => $request->input('vo2max_balikan') ?? null,
             ]);
         } 
         // ✅ Store Team Test (Multiple Players)
@@ -164,16 +131,8 @@ class DataTesController extends Controller
                     'fat_thighs' => $playerData['fat_thighs'] ?? null,
                     'fat_abs' => $playerData['fat_abs'] ?? null,
                     'fat_percentage' => $playerData['fat_percentage'] ?? null,
-                    'fms_squat' => $playerData['fms_squat'] ?? null,
-                    'fms_hurdle' => $playerData['fms_hurdle'] ?? null,
-                    'fms_lunge' => $playerData['fms_lunge'] ?? null,
-                    'fms_shoulder' => $playerData['fms_shoulder'] ?? null,
-                    'fms_leg_raise' => $playerData['fms_leg_raise'] ?? null,
-                    'fms_push_up' => $playerData['fms_push_up'] ?? null,
-                    'fms_rotary' => $playerData['fms_rotary'] ?? null,
-                    'fms_total' => $playerData['fms_total'] ?? null,
-                    'vo2max_type' => $playerData['vo2max_type'] ?? null,
-                    'vo2max_duration' => $playerData['vo2max_duration'] ?? null,
+                    'vo2max_level' => $playerData['vo2max_level'] ?? null,
+                    'vo2max_balikan' => $playerData['vo2max_balikan'] ?? null,
                     'speed' => $playerData['speed'] ?? null,
                     'oxygen' => $playerData['oxygen'] ?? null,
                     'vo2max_score' => $playerData['vo2max_score'] ?? null,
@@ -236,28 +195,8 @@ public function getTeamPlayers($teamId)
             'fat_thighs' => 'nullable|numeric',
             'fat_abs' => 'nullable|numeric',
             'fat_percentage' => 'nullable|numeric',
-    
-            // FMS
-            'fms_squat' => 'nullable|integer|min:0|max:3',
-            'fms_hurdle' => 'nullable|integer|min:0|max:3',
-            'fms_lunge' => 'nullable|integer|min:0|max:3',
-            'fms_shoulder' => 'nullable|integer|min:0|max:3',
-            'fms_leg_raise' => 'nullable|integer|min:0|max:3',
-            'fms_push_up' => 'nullable|integer|min:0|max:3',
-            'fms_rotary' => 'nullable|integer|min:0|max:3',
-            'fms_total' => 'nullable|integer|min:0|max:21',
-    
-            // VO2Max & MAS
-            'vo2max_type' => 'nullable|numeric',
-            'vo2max_duration' => 'nullable|numeric',
-            'speed' => 'nullable|numeric',
-            'oxygen' => 'nullable|numeric',
-            'vo2max_score' => 'nullable|numeric',
-    
-            'mas_type' => 'nullable|numeric',
-            'mas_speed' => 'nullable|numeric',
-            'mas_duration' => 'nullable|numeric',
-            'mas_distance' => 'nullable|numeric',
+            'vo2max_level' => 'nullable|numeric',
+            'vo2max_balikan' => 'nullable|numeric',
         ]);
     
         $datates->update($validated);

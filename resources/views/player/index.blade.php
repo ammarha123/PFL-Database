@@ -51,14 +51,16 @@
             <div class="row mt-3">
                 <!-- Progress Reports -->
                 <div class="col-md-4">
-                    <div class="card menu">
-                        <div class="d-flex align-items-center p-3">
-                            <img src="{{ asset('img/icon4.png') }}" class="card-img-left me-3" alt="Rapor Perkembangan">
-                            <div>
-                                <h5 class="card-title mb-2">Rapor<br>Perkembangan</h5>
+                    <a href="{{ route("player.raporperkembangan.index") }}" class="text-decoration-none">
+                        <div class="card menu">
+                            <div class="d-flex align-items-center p-3">
+                                <img src="{{ asset('img/icon4.png') }}" class="card-img-left me-3" alt="Rapor Perkembangan">
+                                <div>
+                                    <h5 class="card-title mb-2">Rapor<br>Perkembangan</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        </a>
                 </div>
 
                 <!-- Video Data -->

@@ -79,10 +79,11 @@ class DataVideoController extends Controller
      */
     public function show($id)
     {
-        $datavideo = DataVideo::findOrFail($id);
-    
+        $datavideo = DataVideo::with(['match', 'latihan.teams'])->findOrFail($id);
         return view('admin.datavideo.show', compact('datavideo'));
     }
+    
+    
     
 
     /**
@@ -122,7 +123,6 @@ class DataVideoController extends Controller
             $validated['latihan_id'] = null;
         }
     
-        // ✅ Update Data
         $datavideo->update($validated);
     
         return redirect()->route('datavideo.index')->with('success', 'Data video berhasil diperbarui!');

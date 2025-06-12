@@ -91,6 +91,19 @@
     </div>
 
     <div class="row mt-3">
+
+        <div class="col-md-4 mb-3">
+            <a href="{{ route('evaluasi_mandiri_admin.index') }}" class="text-decoration-none">
+                <div class="card menu">
+                    <div class="d-flex align-items-center p-3">
+                        <img src="{{ asset('img/icon6.png') }}" class="card-img-left me-3" alt="Data Tim">
+                        <div>
+                            <h5 class="card-title mb-2">Evaluasi Mandiri</h5>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
         <!-- Data Tim -->
         <div class="col-md-4 mb-3">
             <a href="{{ route('datatim.index') }}" class="text-decoration-none">

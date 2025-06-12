@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container mt-4">
+    <a href="/" class="btn btn-secondary mb-3">
+        &larr; Kembali
+    </a>
     <h2 class="mb-4 text-center">Data Video Anda</h2>
 
     <div class="row">

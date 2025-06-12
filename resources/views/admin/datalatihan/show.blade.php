@@ -16,15 +16,16 @@
             <div class="card-body">
                 <h5 class="card-title">Tanggal Latihan</h5>
                 <p class="card-text">{{ $datalatihan->tanggal }}</p>
-
-                <h5 class="card-title">Nama File Latihan</h5>
-                <p class="card-text">
-                    <a href="{{ asset('storage/' . $datalatihan->latihan_file_path) }}" target="_blank"
-                        class="btn btn-outline-success btn-sm">
-                        <i class="fas fa-file-download me-2"></i>{{ basename($datalatihan->latihan_file_path) }}
-                    </a>
-                </p>
-
+                <h5 class="card-title">Tim</h5>
+                @if ($datalatihan->teams->isEmpty())
+                    <p class="text-muted">Tidak ada tim yang dipilih.</p>
+                @else
+                    <div class="d-flex flex-wrap gap-2 mt-2 mb-3">
+                        @foreach ($datalatihan->teams as $team)
+                            <span class="badge bg-success" style="font-size: 0.9rem; padding: 0.5em 0.75em;">{{ $team->name }}</span>
+                        @endforeach
+                    </div>
+                @endif
                 <h5 class="card-title">Video Latihan</h5>
                 @if ($videos->isNotEmpty())
                     <p class="card-text">
@@ -40,17 +41,13 @@
                 @else
                     <p class="text-muted">Belum ada video yang tersedia.</p>
                 @endif
-
-                <h5 class="card-title">Tim</h5>
-                @if ($datalatihan->teams->isEmpty())
-                    <p class="text-muted">Tidak ada tim yang dipilih.</p>
-                @else
-                    <div class="d-flex flex-wrap gap-2">
-                        @foreach ($datalatihan->teams as $team)
-                            <span class="badge bg-success" style="font-size: 0.9rem; padding: 0.5em 0.75em;">{{ $team->name }}</span>
-                        @endforeach
-                    </div>
-                @endif
+                <h5 class="card-title">Nama File Latihan</h5>
+                <p class="card-text">
+                    <a href="{{ asset('storage/' . $datalatihan->latihan_file_path) }}" target="_blank"
+                        class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-file-download me-2"></i>{{ basename($datalatihan->latihan_file_path) }}
+                    </a>
+                </p>               
 
                 <!-- Player Attendance -->
                 <h5 class="card-title mt-3">Kehadiran Pemain</h5>

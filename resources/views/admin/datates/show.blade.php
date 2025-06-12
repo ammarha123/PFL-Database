@@ -29,28 +29,9 @@
                             <tr><td>Fat Abs</td><td>{{ $datates->fat_abs ?? '-' }}</td></tr>
                             <tr><td>Fat Percentage</td><td>{{ $datates->fat_percentage ?? '-' }}</td></tr>
                         
-                        @elseif ($datates->category === 'FMS')
-                            <tr><td>Squat (0-3)</td><td>{{ $datates->fms_squat ?? '-' }}</td></tr>
-                            <tr><td>Hurdle (0-3)</td><td>{{ $datates->fms_hurdle ?? '-' }}</td></tr>
-                            <tr><td>Lunge (0-3)</td><td>{{ $datates->fms_lunge ?? '-' }}</td></tr>
-                            <tr><td>Shoulder Mobility (0-3)</td><td>{{ $datates->fms_shoulder ?? '-' }}</td></tr>
-                            <tr><td>Leg Raise (0-3)</td><td>{{ $datates->fms_leg_raise ?? '-' }}</td></tr>
-                            <tr><td>Push Up (0-3)</td><td>{{ $datates->fms_push_up ?? '-' }}</td></tr>
-                            <tr><td>Rotary Stability (0-3)</td><td>{{ $datates->fms_rotary ?? '-' }}</td></tr>
-                            <tr><td>Total Score</td><td>{{ $datates->fms_total ?? '-' }}</td></tr>
-                        
                         @elseif ($datates->category === 'VO2Max')
-                            <tr><td>VO2Max Type</td><td>{{ $datates->vo2max_type ?? '-' }}</td></tr>
-                            <tr><td>Durasi (Menit)</td><td>{{ $datates->vo2max_duration ?? '-' }}</td></tr>
-                            <tr><td>Kecepatan (km/h)</td><td>{{ $datates->speed ?? '-' }}</td></tr>
-                            <tr><td>Konsumsi Oksigen</td><td>{{ $datates->oxygen ?? '-' }}</td></tr>
-                            <tr><td>VO2Max Score</td><td>{{ $datates->vo2max_score ?? '-' }}</td></tr>
-                        
-                        @elseif ($datates->category === 'MAS')
-                            <tr><td>MAS Type</td><td>{{ $datates->mas_type ?? '-' }}</td></tr>
-                            <tr><td>Kecepatan Maksimal (km/h)</td><td>{{ $datates->mas_speed ?? '-' }}</td></tr>
-                            <tr><td>Durasi (Menit)</td><td>{{ $datates->mas_duration ?? '-' }}</td></tr>
-                            <tr><td>Jarak (m)</td><td>{{ $datates->mas_distance ?? '-' }}</td></tr>
+                            <tr><td>VO2Max Level</td><td>{{ $datates->vo2max_level ?? '-' }}</td></tr>
+                            <tr><td>Jumlah Balikan</td><td>{{ $datates->vo2max_balikan ?? '-' }}</td></tr>
                         @endif
                     </tbody>
                 </table>

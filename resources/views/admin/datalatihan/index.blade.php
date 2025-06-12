@@ -61,64 +61,54 @@
         </div>
     </div>
 
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th>No.</th>
-                <th>Tanggal</th>
-                <th>Nama File</th>
-                <th>Nama Tim</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($datalatihan as $index => $item)
-            <tr>
-                <td>{{ $datalatihan->firstItem() + $index }}</td>
-                <td>{{ $item->tanggal }}</td>
-                <td>
-                    <a href="{{ asset('storage/' . $item->latihan_file_path) }}" target="_blank">
-                        {{ basename($item->latihan_file_path) }}
-                    </a>
-                </td>
-                <td>
-                    @php
-                        // ✅ Fetch, sort, and display team names
-                        $sortedTeams = $item->teams->pluck('name')->sort()->values()->toArray();
-                        if (request('sort_order') === 'desc') {
-                            $sortedTeams = array_reverse($sortedTeams);
-                        }
-                    @endphp
-                    {{ implode(', ', $sortedTeams) }}
-                </td>
-                <td>
-                    <a href="{{ route('datalatihan.show', $item->id) }}" class="btn btn-info btn-sm">
-                        <i class="fas fa-eye"></i> Detail
-                    </a>
-                    <a href="{{ route('datalatihan.edit', $item->id) }}" class="btn btn-warning btn-sm">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <form action="{{ route('datalatihan.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i> Hapus
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="5" class="text-center">Tidak ada data latihan.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>    
-
-    <div class="d-flex justify-content-center mt-3">
-        {{ $datalatihan->appends(request()->query())->links('pagination::bootstrap-4') }}
-    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-success text-dark">
+                <tr>
+                    <th style="width: 5%;">No.</th>
+                    <th style="width: 20%;">Tanggal</th>
+                    <th style="width: 45%;">Nama Tim</th>
+                    <th style="width: 30%;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($datalatihan as $index => $item)
+                <tr>
+                    <td>{{ $datalatihan->firstItem() + $index }}</td>
+                    <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
+                    <td class="text-start">
+                        @foreach ($item->teams as $team)
+                        {{ $team->name }}
+                        @endforeach
+                    </td>
+                    <td>
+                        <a href="{{ route('datalatihan.show', $item->id) }}" class="btn btn-sm btn-info me-1">
+                            <i class="fas fa-eye"></i> Detail
+                        </a>
+                        <a href="{{ route('datalatihan.edit', $item->id) }}" class="btn btn-sm btn-warning me-1">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form action="{{ route('datalatihan.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="4" class="text-center text-muted">Tidak ada data latihan.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    
+        <div class="d-flex justify-content-center mt-3">
+            {{ $datalatihan->appends(request()->query())->links('pagination::bootstrap-4') }}
+        </div>
+    </div>    
 </div>
 
 <script>

@@ -51,9 +51,9 @@
                     <select class="form-select" id="latihan_id" name="latihan_id">
                         <option value="">Pilih Latihan</option>
                         @foreach ($latihan as $item)
-                            <option value="{{ $item->id }}" {{ $datavideo->latihan_id == $item->id ? 'selected' : '' }}>
-                                {{ $item->tanggal }}
-                            </option>
+                        <option value="{{ $item->id }}" {{ $datavideo->latihan_id == $item->id ? 'selected' : '' }}>
+                            {{ $item->tanggal }} - {{ $item->teams->pluck('name')->join(', ') }}
+                        </option>                        
                         @endforeach
                     </select>
                 </div>

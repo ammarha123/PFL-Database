@@ -22,4 +22,15 @@ class RaporPerkembangan extends Model
     {
         return $this->hasMany(RaporPosition::class, 'rapor_id');
     }
+
+    public function targets()
+    {
+        return $this->hasMany(TargetPengembangan::class, 'rapor_id');
+    }
+
+    public function evaluasi()
+    {
+        return $this->hasOne(Evaluasi::class, 'rapor_id');
+    }
+
 }

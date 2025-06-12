@@ -32,5 +32,10 @@ class Player extends Model
 {
     return $this->hasOne(RaporPerkembangan::class);
 }
+public function raporPerkembangan()
+{
+    return $this->hasOne(RaporPerkembangan::class, 'player_id')->with(['evaluasi', 'positions', 'targets']);
+}
+
 
 }

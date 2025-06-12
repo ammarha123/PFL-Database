@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container mt-4">
+        <a href="/" class="btn btn-secondary mb-3">
+            &larr; Kembali
+        </a>
         <div class="row">
             @include('partial.player-data')
             <div class="row mt-5">

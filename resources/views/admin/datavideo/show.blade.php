@@ -23,7 +23,10 @@
                 </div>
                    
                 @elseif ($datavideo->video_category === 'Latihan')
-                    Tanggal Latihan: {{ $datavideo->latihan->tanggal ?? '-' }}
+                <div class="tanggal">
+                    Tanggal Latihan: {{ $datavideo->latihan->tanggal ?? '-' }} - 
+                    {{ $datavideo->latihan->teams->pluck('name')->join(', ') }}
+                </div>                
                 @else
                     -
                 @endif

@@ -16,4 +16,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Player::class);
     }
+
+   // App\Models\User.php
+
+public function evaluasiMandiri()
+{
+    return $this->hasMany(EvaluasiMandiri::class, 'user_id');
+}
 }

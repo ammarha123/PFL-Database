@@ -17,9 +17,9 @@
 
                     <!-- 🔹 Test Type Selection -->
                     <div class="mb-3">
-                        <label for="test_type" class="form-label">Jenis Tes</label>
+                        <label for="test_type" class="form-label">Input Tes</label>
                         <select class="form-select" id="test_type" name="test_type" required>
-                            <option selected disabled>Pilih Jenis Tes</option>
+                            <option selected disabled>Pilih Input Tes</option>
                             <option value="individual">Individu</option>
                             <option value="team">Tim</option>
                         </select>
@@ -50,13 +50,11 @@
 
                     <!-- 🔹 Category Selection -->
                     <div class="mb-3" id="category_section" style="display: none;">
-                        <label for="category" class="form-label">Kategori</label>
+                        <label for="category" class="form-label">Jenis Tes</label>
                         <select class="form-select" id="category" name="category" required>
-                            <option selected disabled>Pilih Kategori</option>
+                            <option selected disabled>Pilih Jenis Tes</option>
                             <option value="Antropometri">Antropometri</option>
-                            <option value="FMS">FMS</option>
                             <option value="VO2Max">VO2Max</option>
-                            <option value="MAS">MAS</option>
                         </select>
                     </div>
 
@@ -69,7 +67,7 @@
                         <div id="players_list"></div>
                     </div>
 
-                    <button type="submit" class="btn btn-success">Simpan</button>
+                    <button type="submit" class="btn btn-success mt-3">Simpan</button>
                 </form>
             </div>
         </div>
@@ -190,21 +188,89 @@
                 let prefix = testType.value === 'team' ? `players[${playerId}]` : '';
 
                 if (category === 'Antropometri') {
-                    fields += `
-                    <div class="col"><input type="number" step="0.1" class="form-control my-2" name="${prefix ? prefix + '[weight]' : 'weight'}" placeholder="Berat (kg)"></div>
-                    <div class="col"><input type="number" step="0.1" class="form-control my-2" name="${prefix ? prefix + '[height]' : 'height'}" placeholder="Tinggi (cm)"></div>
-                    <div class="col"><input type="number" step="0.1" class="form-control my-2" name="${prefix ? prefix + '[bmi]' : 'bmi'}" placeholder="BMI" readonly></div>
-                    <div class="col"><input type="number" step="0.1" class="form-control my-2" name="${prefix ? prefix + '[fat_chest]' : 'fat_chest'}" placeholder="Fat Chest (mm)"></div>
-                    <div class="col"><input type="number" step="0.1" class="form-control my-2" name="${prefix ? prefix + '[fat_thighs]' : 'fat_thighs'}" placeholder="Fat Thighs (mm)"></div>
-                    <div class="col"><input type="number" step="0.1" class="form-control my-2" name="${prefix ? prefix + '[fat_abs]' : 'fat_abs'}" placeholder="Fat Abs (mm)"></div>
-                    <div class="col"><input type="number" step="0.1" class="form-control my-2" name="${prefix ? prefix + '[fat_percentage]' : 'fat_percentage'}" placeholder="Fat Overall (%)" readonly></div>
-                `;
-                }
+    fields += `
+        <div class="col">
+            <label class="form-label">Berat (kg)
+                <i class="fas fa-info-circle text-secondary" data-bs-toggle="tooltip" title="Berat badan pemain saat pengukuran (kg)"></i>
+            </label>
+            <input type="number" step="0.1" class="form-control" name="${prefix ? prefix + '[weight]' : 'weight'}" placeholder="Berat (kg)">
+        </div>
+        <div class="col">
+            <label class="form-label">Tinggi (cm)
+                <i class="fas fa-info-circle text-secondary" data-bs-toggle="tooltip" title="Tinggi badan dalam cm (tanpa sepatu)"></i>
+            </label>
+            <input type="number" step="0.1" class="form-control" name="${prefix ? prefix + '[height]' : 'height'}" placeholder="Tinggi (cm)">
+        </div>
+        <div class="col">
+            <label class="form-label">BMI
+                <i class="fas fa-info-circle text-secondary" data-bs-toggle="tooltip" title="Body Mass Index otomatis dihitung dari berat dan tinggi"></i>
+            </label>
+            <input type="number" step="0.1" class="form-control" name="${prefix ? prefix + '[bmi]' : 'bmi'}" placeholder="BMI" readonly>
+        </div>
+        <div class="col">
+            <label class="form-label">Fat Chest (mm)
+                <i class="fas fa-info-circle text-secondary" data-bs-toggle="tooltip" title="Tebal lemak di dada (dengan alat skinfold caliper)"></i>
+            </label>
+            <input type="number" step="0.1" class="form-control" name="${prefix ? prefix + '[fat_chest]' : 'fat_chest'}" placeholder="Fat Chest (mm)">
+        </div>
+        <div class="col">
+            <label class="form-label">Fat Thighs (mm)
+                <i class="fas fa-info-circle text-secondary" data-bs-toggle="tooltip" title="Tebal lemak di paha (mm) menggunakan skinfold caliper"></i>
+            </label>
+            <input type="number" step="0.1" class="form-control" name="${prefix ? prefix + '[fat_thighs]' : 'fat_thighs'}" placeholder="Fat Thighs (mm)">
+        </div>
+        <div class="col">
+            <label class="form-label">Fat Abs (mm)
+                <i class="fas fa-info-circle text-secondary" data-bs-toggle="tooltip" title="Tebal lemak di perut (mm) menggunakan skinfold caliper"></i>
+            </label>
+            <input type="number" step="0.1" class="form-control" name="${prefix ? prefix + '[fat_abs]' : 'fat_abs'}" placeholder="Fat Abs (mm)">
+        </div>
+        <div class="col">
+            <label class="form-label">Fat % (otomatis)
+                <i class="fas fa-info-circle text-secondary" data-bs-toggle="tooltip" title="Persentase lemak tubuh dihitung otomatis dari skinfolds dan umur"></i>
+            </label>
+            <input type="number" step="0.1" class="form-control" name="${prefix ? prefix + '[fat_percentage]' : 'fat_percentage'}" placeholder="Fat Overall (%)" readonly>
+        </div>
+    `;
 
-                // Add other categories (FMS, VO2Max, MAS) if needed...
+} else if (category === 'VO2Max') {
+    fields += `
+        <div class="col">
+            <label class="form-label">VO2Max Level 
+                <i class="fas fa-info-circle text-secondary"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   title="Isi berdasarkan hasil tes VO2Max (misalnya dari beep test)">
+                </i>
+            </label>
+            <input type="number" step="0.1" class="form-control my-2" 
+                name="${prefix ? prefix + '[vo2max_level]' : 'vo2max_level'}" 
+                placeholder="VO2Max Level">
+        </div>
+        <div class="col">
+            <label class="form-label">Balikan 
+                <i class="fas fa-info-circle text-secondary"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   title="Jumlah total balikan atau shuttle saat tes">
+                </i>
+            </label>
+            <input type="number" step="1" class="form-control my-2" 
+                name="${prefix ? prefix + '[balikan]' : 'balikan'}" 
+                placeholder="Balikan">
+        </div>
+    `;
+}
 
                 return fields;
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
         });
 
         // Calculate age from BOD

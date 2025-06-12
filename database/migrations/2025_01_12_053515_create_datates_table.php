@@ -20,38 +20,15 @@ return new class extends Migration
             $table->float('weight')->nullable(); // kg
             $table->float('height')->nullable(); // cm
             $table->float('bmi')->nullable();
+            $table->float('fat_chest')->nullable();
+            $table->float('fat_thighs')->nullable();
+            $table->float('fat_abs')->nullable();
             $table->float('fat_percentage')->nullable();
-            $table->float('muscle_mass')->nullable();
-            $table->float('arm_span')->nullable();
-            $table->float('wing_span')->nullable();
-            
-            // ✅ FMS (Scores 0-3 per test)
-            $table->integer('fms_squat')->nullable();
-            $table->integer('fms_hurdle')->nullable();
-            $table->integer('fms_lunge')->nullable();
-            $table->integer('fms_shoulder')->nullable();
-            $table->integer('fms_leg_raise')->nullable();
-            $table->integer('fms_push_up')->nullable();
-            $table->integer('fms_rotary')->nullable();
-            $table->integer('fms_total')->nullable(); 
-        
             // ✅ VO2max & MAS
-            $table->float('vo2max_type')->nullable();
-            $table->float('vo2max_duration')->nullable();
-            $table->float('speed')->nullable();
-            $table->float('oxygen')->nullable();
-            $table->float('vo2max_score')->nullable();
-
-
-            $table->float('mas_type')->nullable(); // km/h
-            $table->float('mas_speed')->nullable();
-            $table->float('mas_duration')->nullable(); // km/h
-            $table->float('mas_distance')->nullable(); // km/h
+            $table->float('vo2max_level')->nullable();
+            $table->float('vo2max_balikan')->nullable();
         
-            $table->timestamps(); // Created and updated timestamps
-
-            // ✅ Foreign Key Constraint
-            // $table->foreign('player_id')->references('id')->on('players')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps(); 
         });
         
     }
@@ -61,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('datates'); // Drops the table if it exists
+        Schema::dropIfExists('datates');
     }
 };
